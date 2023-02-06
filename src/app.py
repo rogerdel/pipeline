@@ -10,5 +10,5 @@ def index():
     return "Hello world"
 
 
-
-app.run("0.0.0.0", PORT)
+if __name__ == '__main__':
+    app.run("0.0.0.0", PORT)
