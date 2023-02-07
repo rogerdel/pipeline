@@ -1,0 +1,27 @@
+name: build for docker
+
+on: 
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ main ]
+
+
+permissions:
+  contents: read 
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: build docker container
+        run: | 
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/pytest .
+          docker login -u $ {{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/pytest
+
+        
