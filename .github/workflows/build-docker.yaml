@@ -18,10 +18,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: build docker container
-        run: | 
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/pytest .
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username $ {{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push ${{ secrets.DOCKER_USERNAME }}/pytest
-
-        
+      - name: loging to docker hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pythontest:latest
