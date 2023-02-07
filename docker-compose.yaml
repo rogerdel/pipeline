@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   web:
-    image: pythontest
-    build:
+    image: rogerssh/pythontest
+    build: 
       context: .
     environment:
       - PORT=5000
